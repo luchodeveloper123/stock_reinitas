@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Agregar Sección - Madera</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+  <style>
+    body {
+      background: linear-gradient(to bottom right, #d2b48c, #f3e5d0);
+      font-family: sans-serif;
+      margin: 0;
+      padding: 3rem;
+    }
+
+    .form-card {
+      background: #fff;
+      max-width: 480px;
+      margin: auto;
+      padding: 2rem;
+      border-radius: 14px;
+      box-shadow: 0 0 15px rgba(0,0,0,0.08);
+    }
+
+    h2 {
+      text-align: center;
+      font-size: 1.6rem;
+      margin-bottom: 1rem;
+      color: #333;
+    }
+
+    label {
+      display: block;
+      margin: 1rem 0 0.3rem;
+      font-weight: bold;
+      color: #444;
+    }
+
+    input[type="text"] {
+      width: 100%;
+      padding: 0.6rem;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      font-size: 1rem;
+    }
+
+    button {
+      margin-top: 1.2rem;
+      width: 100%;
+      padding: 0.8rem;
+      background-color: #333;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-size: 1rem;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #555;
+    }
+
+    .mensaje {
+      text-align: center;
+      margin-top: 1rem;
+      font-weight: bold;
+      color: green;
+    }
+  </style>
+</head>
+<body>
+  <input type="checkbox" id="menu-toggle">
+  <label for="menu-toggle" class="menu-icon">&#9776;</label>
+
+  <nav class="side-menu">
+  <ul>
+    <!-- Inicio -->
+    <li>
+      <label for="menu-toggle">
+        <a href="/">Inicio</a>
+      </label>
+    </li>
+
+    <!-- TELA -->
+    <li class="submenu">
+      <input type="checkbox" id="submenu-tela">
+      <label for="submenu-tela" class="menu-link"><span>Tela</span></label>
+      
+      <ul class="subnav">
+        <!-- STOCK LOCAL DE TELA -->
+        <li class="nested-submenu">
+          <input type="checkbox" id="stock-local-tela">
+          <label for="stock-local-tela" class="menu-link"><span>Stock Local</span></label>
+          
+          <ul class="subsubnav">
+            <li><a href="/tela/local/consultar-stock">Consultar stock</a></li>
+          </ul>
+        </li>
+
+        <!-- STOCK TALLER DE TELA -->
+        <li class="nested-submenu">
+          <input type="checkbox" id="stock-taller-tela">
+          <label for="stock-taller-tela" class="menu-link"><span>Stock Taller</span></label>
+          
+          <ul class="subsubnav">
+            <li><a href="/tela/taller/agregar-producto">Agregar producto</a></li>
+            <li><a href="/tela/taller/agregar-seccion">Agregar sección</a></li>
+            <li><a href="/tela/taller/consultar-stock">Consultar stock</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+
+    <!-- MADERA -->
+    <li class="submenu">
+      <input type="checkbox" id="submenu-madera">
+      <label for="submenu-madera" class="menu-link"><span>Madera</span></label>
+      <ul class="subnav">
+        <!-- STOCK LOCAL DE MADERA -->
+        <li class="nested-submenu">
+          <input type="checkbox" id="stock-local-madera">
+          <label for="stock-local-madera" class="menu-link"><span>Stock Local</span></label>
+          
+          <ul class="subsubnav">
+            <li><a href="/madera/local/consultar-stock">Consultar stock</a></li>
+          </ul>
+        </li>
+
+        <!-- STOCK TALLER DE MADERA -->
+        <li class="nested-submenu">
+          <input type="checkbox" id="stock-taller-madera">
+          <label for="stock-taller-madera" class="menu-link"><span>Stock Taller</span></label>
+          
+          <ul class="subsubnav">
+            <li><a href="/madera/taller/agregar-producto">Agregar producto</a></li>
+            <li><a href="/madera/taller/agregar-seccion">Agregar sección</a></li>
+            <li><a href="/madera/taller/consultar-stock">Consultar stock</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+
+  <div class="form-card">
+    <h2>📂 Agregar Sección - Taller Madera</h2>
+
+    <form method="POST">
+      <label for="nombre">Nombre de la sección:</label>
+      <input type="text" name="nombre" id="nombre" required>
+
+      <button type="submit">Agregar sección</button>
+    </form>
+
+    {% if mensaje %}
+      <div class="mensaje">{{ mensaje }}</div>
+    {% endif %}
+  </div>
+</body>
+</html>

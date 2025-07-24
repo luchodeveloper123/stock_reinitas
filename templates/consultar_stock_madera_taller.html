@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Consultar Stock - Taller Madera</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+  <input type="checkbox" id="menu-toggle">
+  <label for="menu-toggle" class="menu-icon">&#9776;</label>
+
+  <nav class="side-menu">
+  <ul>
+    <!-- Inicio -->
+    <li>
+      <label for="menu-toggle">
+        <a href="/">Inicio</a>
+      </label>
+    </li>
+
+    <!-- TELA -->
+    <li class="submenu">
+      <input type="checkbox" id="submenu-tela">
+      <label for="submenu-tela" class="menu-link"><span>Tela</span></label>
+      
+      <ul class="subnav">
+        <!-- STOCK LOCAL DE TELA -->
+        <li class="nested-submenu">
+          <input type="checkbox" id="stock-local-tela">
+          <label for="stock-local-tela" class="menu-link"><span>Stock Local</span></label>
+          
+          <ul class="subsubnav">
+            <li><a href="/tela/local/consultar-stock">Consultar stock</a></li>
+          </ul>
+        </li>
+
+        <!-- STOCK TALLER DE TELA -->
+        <li class="nested-submenu">
+          <input type="checkbox" id="stock-taller-tela">
+          <label for="stock-taller-tela" class="menu-link"><span>Stock Taller</span></label>
+          
+          <ul class="subsubnav">
+            <li><a href="/tela/taller/agregar-producto">Agregar producto</a></li>
+            <li><a href="/tela/taller/agregar-seccion">Agregar sección</a></li>
+            <li><a href="/tela/taller/consultar-stock">Consultar stock</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+
+    <!-- MADERA -->
+    <li class="submenu">
+      <input type="checkbox" id="submenu-madera">
+      <label for="submenu-madera" class="menu-link"><span>Madera</span></label>
+      <ul class="subnav">
+        <!-- STOCK LOCAL DE MADERA -->
+        <li class="nested-submenu">
+          <input type="checkbox" id="stock-local-madera">
+          <label for="stock-local-madera" class="menu-link"><span>Stock Local</span></label>
+          
+          <ul class="subsubnav">
+            <li><a href="/madera/local/consultar-stock">Consultar stock</a></li>
+          </ul>
+        </li>
+
+        <!-- STOCK TALLER DE MADERA -->
+        <li class="nested-submenu">
+          <input type="checkbox" id="stock-taller-madera">
+          <label for="stock-taller-madera" class="menu-link"><span>Stock Taller</span></label>
+          
+          <ul class="subsubnav">
+            <li><a href="/madera/taller/agregar-producto">Agregar producto</a></li>
+            <li><a href="/madera/taller/agregar-seccion">Agregar sección</a></li>
+            <li><a href="/madera/taller/consultar-stock">Consultar stock</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+
+  <div class="tarjeta-principal">
+    <h2 class="titulo-stock">🪵 Stock Taller Madera</h2>
+
+    <form method="GET" action="/madera/taller/consultar-stock" class="buscar-form">
+      <input type="text" name="buscar" class="buscar-box" placeholder="Buscar producto..." value="{{ filtro or '' }}">
+      <button type="submit" class="buscar-btn">🔍</button>
+    </form>
+
+    {% set seccion_activa = request.args.get('abierta') %}
+
+<div class="grupo-productos">
+  {% for seccion, datos in stock_por_seccion.items() %}
+    {% set indice = loop.index %}
+    {% if seccion == "🗂️ Sin sección" %}
+      {% for producto in datos.productos %}
+        <div class="tarjeta-producto">
+          <div class="producto-nombre">{{ producto.nombre }}</div>
+          <div class="producto-controles">
+            <form method="POST" action="/madera/taller/modificar-cantidad#seccion-{{ indice }}">
+              <input type="hidden" name="producto_id" value="{{ producto.id }}">
+              <input type="hidden" name="accion" value="restar">
+              <input type="hidden" name="seccion_abierta" value="{{ seccion }}">
+              <button type="submit" class="control-btn">−</button>
+            </form>
+            <div class="cantidad-box">{{ producto.cantidad }}</div>
+            <form method="POST" action="/madera/taller/modificar-cantidad#seccion-{{ indice }}">
+              <input type="hidden" name="producto_id" value="{{ producto.id }}">
+              <input type="hidden" name="accion" value="sumar">
+              <input type="hidden" name="seccion_abierta" value="{{ seccion }}">
+              <button type="submit" class="control-btn">+</button>
+            </form>
+          </div>
+        </div>
+      {% endfor %}
+    {% else %}
+      <div class="bloque-seccion">
+        <details id="seccion-{{ indice }}" {% if seccion == seccion_activa %}open{% endif %}>
+          <summary>{{ seccion }} — Total: {{ datos.total }}</summary>
+          <div class="productos-lista">
+            {% for producto in datos.productos %}
+              <div class="tarjeta-producto">
+                <div class="producto-nombre">{{ producto.nombre }}</div>
+                <div class="producto-controles">
+                  <form method="POST" action="/madera/taller/modificar-cantidad#seccion-{{ indice }}">
+                    <input type="hidden" name="producto_id" value="{{ producto.id }}">
+                    <input type="hidden" name="accion" value="restar">
+                    <input type="hidden" name="seccion_abierta" value="{{ seccion }}">
+                    <button type="submit" class="control-btn">−</button>
+                  </form>
+                  <div class="cantidad-box">{{ producto.cantidad }}</div>
+                  <form method="POST" action="/madera/taller/modificar-cantidad#seccion-{{ indice }}">
+                    <input type="hidden" name="producto_id" value="{{ producto.id }}">
+                    <input type="hidden" name="accion" value="sumar">
+                    <input type="hidden" name="seccion_abierta" value="{{ seccion }}">
+                    <button type="submit" class="control-btn">+</button>
+                  </form>
+                </div>
+              </div>
+            {% endfor %}
+          </div>
+        </details>
+      </div>
+    {% endif %}
+  {% endfor %}
+</div>
+
+
+  <img src="{{ url_for('static', filename='reinitas.jpg') }}" class="corner-logo">
+</body>
+</html>

@@ -1,0 +1,446 @@
+body {
+  background-color: #F4EEE2;
+  font-family: sans-serif;
+  margin: 0;
+  padding: 2rem;
+  box-sizing: border-box;
+  overflow-x: hidden;
+  min-height: 100vh;
+}
+
+
+/* Icono hamburguesa */
+.menu-icon {
+  position: fixed;
+  top: 1rem;
+  left: 1rem;
+  z-index: 1000;
+  font-size: 2rem;
+  color: #333;
+  transition: color 0.3s ease;
+}
+
+/* Cambia color cuando el menú está abierto */
+#menu-toggle:checked + .menu-icon {
+  color: white;
+}
+
+/* Ocultar checkbox */
+#menu-toggle {
+  display: none;
+}
+
+/* Menú lateral */
+.side-menu {
+  position: fixed;
+  top: 0;
+  left: -240px;
+  width: 220px;
+  height: 100%;
+  background-color: #000;
+  transition: left 0.4s ease;
+  padding-top: 5rem;
+  z-index: 999;
+  border-radius: 10px;
+}
+
+/* Mostrar menú al activar */
+#menu-toggle:checked + .menu-icon + .side-menu {
+  left: 0;
+}
+
+/* Lista del menú */
+.side-menu ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.side-menu li {
+  margin: 0;
+}
+
+.side-menu li a,
+.menu-link span {
+  display: block;
+  padding: 1rem;
+  color: #fff;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.side-menu li a:hover,
+.menu-link:hover {
+  background-color: #222;
+}
+
+.logo {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  transform: translateY(-50%);
+  width: 100%;
+  text-align: center;
+}
+
+
+/* Submenús principales */
+.submenu {
+  position: relative;
+}
+
+.submenu input {
+  display: none;
+}
+
+.subnav {
+  display: none;
+  background-color: #111;
+  padding-left: 1rem;
+}
+
+.submenu input:checked + .menu-link + .subnav {
+  display: block;
+}
+
+.subnav li a {
+  padding: 0.8rem 1.5rem;
+  font-size: 0.9rem;
+  color: #ccc;
+  text-decoration: none;
+  background-color: #111;
+}
+
+.subnav li a:hover {
+  background-color: #222;
+  color: #fff;
+}
+
+/* Submenús anidados: stock local/taller */
+.nested-submenu {
+  position: relative;
+}
+
+.nested-submenu input {
+  display: none;
+}
+
+.subsubnav {
+  display: none;
+  background-color: #111;
+  padding-left: 1.5rem;
+}
+
+.nested-submenu input:checked + .menu-link + .subsubnav {
+  display: block;
+}
+
+.subsubnav li a {
+  padding: 0.7rem 1.2rem;
+  font-size: 0.85rem;
+  color: #bbb;
+  text-decoration: none;
+  background-color: #111;
+}
+
+.subsubnav li a:hover {
+  background-color: #222;
+  color: #fff;
+}
+
+.stock-container {
+  display: none; /* Oculto por defecto */
+  padding: 2rem;
+  margin-top: 4rem;
+  background-color: #f6e6d2;
+  border-radius: 8px;
+}
+
+.search-bar {
+  display: flex;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+#search-input {
+  width: 100%;
+  padding: 0.8rem 1rem;
+  border: 1px solid #ccc;
+  border-radius: 5px 0 0 5px;
+  outline: none;
+}
+
+.lupa-icon {
+  background-color: #333;
+  color: #fff;
+  padding: 0.8rem;
+  border-radius: 0 5px 5px 0;
+  font-size: 1.2rem;
+}
+
+.product-list ul {
+  list-style: none;
+  padding: 0;
+}
+
+.product-list li {
+  padding: 0.6rem 0;
+  border-bottom: 1px solid #ccc;
+}
+
+.mensaje-exito {
+  background-color: #e0ffe0;
+  color: #226622;
+  padding: 1rem;
+  margin-bottom: 1rem;
+  border-radius: 6px;
+  font-weight: bold;
+  text-align: center;
+  box-shadow: 0 0 6px #aaa;
+}
+
+.corner-logo {
+  position: fixed;
+  bottom: 1rem;
+  right: 1rem;
+  width: 120px;
+  opacity: 0.9;
+  z-index: 10;
+  border-radius: 15px;
+}
+
+.tarjeta-principal {
+  background-color: #fff8ee;
+  padding: 2rem;
+  max-width: 850px;
+  margin: auto;
+  border-radius: 16px;
+  box-shadow: 0 0 20px rgba(0,0,0,0.08);
+  box-sizing: border-box;
+}
+
+/* Título */
+.titulo-stock {
+  text-align: center;
+  font-size: 1.8rem;
+  color: #333;
+  margin-bottom: 1rem;
+  font-weight: 600;
+}
+
+/* Formulario de búsqueda */
+.buscar-form {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.buscar-box {
+  padding: 0.6rem;
+  width: 60%;
+  max-width: 300px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+}
+
+.buscar-btn {
+  padding: 0.6rem;
+  margin-left: 0.5rem;
+  background-color: #333;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.buscar-btn:hover {
+  background-color: #555;
+}
+
+/* Producto */
+.tarjeta-producto {
+  background-color: white;
+  padding: 1rem;
+  border-radius: 10px;
+  box-shadow: 0 0 8px rgba(0,0,0,0.05);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.producto-nombre {
+  font-weight: 500;
+  color: #333;
+  flex: 1;
+}
+
+.producto-controles {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.control-btn {
+  background-color: #333;
+  color: #fff;
+  border: none;
+  padding: 0.4rem 0.8rem;
+  font-size: 1rem;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.control-btn:hover {
+  background-color: #555;
+}
+
+.cantidad-box {
+  background-color: #f0f0f0;
+  padding: 0.4rem 0.8rem;
+  border-radius: 6px;
+  font-weight: bold;
+  min-width: 40px;
+  text-align: center;
+  box-shadow: inset 0 0 3px rgba(0,0,0,0.05);
+}
+
+/* Bloques por sección */
+.bloque-seccion details {
+  margin-bottom: 1rem;
+  border-bottom: 1px solid #d2b48c;
+  padding-bottom: 0.5rem;
+}
+
+summary {
+  font-weight: bold;
+  font-size: 1.2rem;
+  cursor: pointer;
+  margin-bottom: 0.5rem;
+  color: #444;
+}
+
+/* Logo */
+.corner-logo {
+  position: fixed;
+  bottom: 1rem;
+  right: 1rem;
+  width: 100px;
+  opacity: 0.9;
+  z-index: 10;
+}
+
+body.vista-local-tela {
+  background-color: #F4EEE2;
+}
+
+.tarjeta-principal.vista-tela {
+  background-color: #fafafa;
+}
+
+.bloque-seccion details {
+  border-bottom: 1px solid #d4e4c1;
+}
+@media (min-width: 320px) and (max-width: 480px)
+ {
+  body {
+    padding: 1rem;
+    padding-left: 0;
+    word-wrap: break-word;
+  }
+
+.tarjeta-principal {
+  max-width: 100%;
+  box-sizing: border-box;
+  background-color: #fff8ee;
+}
+  .producto-controles {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0.3rem;
+  }
+
+  .control-btn,
+  .cantidad-box,
+  .buscar-box,
+  .buscar-btn {
+    width: 100%;
+  }
+
+  .menu-icon {
+    font-size: 1.6rem;
+    top: 0.5rem;
+    left: 0.5rem;
+  }
+
+.side-menu {
+    width: 180px;               /* Menú más angosto */
+    max-width: 200px;
+    border-radius: 0 10px 10px 0;  /* Esquinas suaves del lado derecho */
+    box-shadow: 2px 0 6px rgba(0, 0, 0, 0.2);
+    padding-top: 4rem;
+}
+
+#menu-toggle:checked + .menu-icon + .side-menu {
+  left: 0;
+}
+
+  .subsubnav li a,
+  .subnav li a,
+  .menu-link span {
+    font-size: 0.85rem;
+    padding: 0.6rem 1rem;
+  }
+
+  .corner-logo {
+    width: 75px;
+    bottom: 0.5rem;
+    right: 0.5rem;
+  }
+  .tarjeta-producto {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0.8rem;
+    padding: 1rem;
+    margin-bottom: 1rem;
+    border: 1px solid #ccc;
+    background-color: #fef3d8; /* o el que quieras */
+  }
+
+  .producto-nombre {
+    font-size: 1.1rem;
+    text-align: center;
+  }
+
+  .producto-controles {
+    flex-direction: row;
+    justify-content: center;
+    gap: 0.5rem;
+  }
+
+  .control-btn {
+    flex: 0 0 auto;
+    padding: 0.4rem 0.7rem;
+  }
+
+  .cantidad-box {
+    font-size: 1.1rem;
+    min-width: 50px;
+    background-color: #fff5e0;
+    border-radius: 8px;
+  }
+
+  summary {
+    font-size: 1.3rem;
+    text-align: center;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px dashed #ccc;
+  }
+  .producto-controles form {
+  flex: 1;
+}
+
+.producto-controles button {
+  width: 100%;
+}
+}
+

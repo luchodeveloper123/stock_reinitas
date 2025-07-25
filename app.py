@@ -1,6 +1,7 @@
 from flask import Flask, render_template, request, redirect
 import sqlite3
 from proyecto import inicializar_bases
+import os
 
 app = Flask(__name__)
 inicializar_bases()  # Ejecuta solo una vez al inicio
@@ -383,5 +384,6 @@ def modificar_cantidad_madera_local():
 
 
 
-if __name__ == '__main__':
-    app.run(debug=True)
+if __name__ == "__main__":
+    app.run(debug=False, host="0.0.0.0", port=int(os.environ.get("PORT", 5000)))
+
